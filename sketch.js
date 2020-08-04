@@ -1,8 +1,4 @@
 //Game By Ritik Jain
-let video;
-let flipVideo;
-
-
 let label = "Starting the Game";
 
 let classifier;
