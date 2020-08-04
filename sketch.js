@@ -1,3 +1,4 @@
+//Game By Ritik Jain
 let video;
 let flipVideo;
 
@@ -5,11 +6,11 @@ let flipVideo;
 let label = "Starting the Game";
 
 let classifier;
-let modelURL = 'https://teachablemachine.withgoogle.com/models/RMrQYTR-o/';
+let modelURL = 'https://teachablemachine.withgoogle.com/models/PjIWkhCuB/';
 
 
 function preload() {
-  classifier = ml5.imageClassifier(modelURL + 'model.json');
+  classifier = ml5.soundClassifier(modelURL + 'model.json');
 }
 
 
@@ -21,13 +22,8 @@ let h;
 
 function setup() {
   createCanvas(740, 540);
-  // Create the video
-  video = createCapture(VIDEO);
-  video.size(740, 540);
-  video.hide();
-  flipVideo = ml5.flipImage(video);
 
-  classifyVideo();
+  classifyAudio();
   w = floor(width / rez);
   h = floor(height / rez);
   frameRate(4);
@@ -35,9 +31,8 @@ function setup() {
   foodLocation();
 }
 
-function classifyVideo() {
-  flipVideo = ml5.flipImage(video);
-  classifier.classify(flipVideo, gotResults);
+function classifyAudio() {
+  classifier.classify(gotResults);
 }
 function foodLocation() {
   let x = floor(random(w));
@@ -61,7 +56,6 @@ function draw() {
   background(255);
 
 
-  image(flipVideo, 0, 0);
   textSize(32);
   fill(0);
   text(label, 10, 50);
@@ -91,5 +85,4 @@ function gotResults(error, results) {
   }
   label = results[0].label;
   controlSnake();
-  classifyVideo();
 }
